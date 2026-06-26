@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dawr | Hijri cycle and fasting tracker</title>
+    <meta
+      name="description"
+      content="Dawr is a calm, local-first Hijri cycle and fasting tracker for private personal reflection."
+    />
+    <link rel="icon" type="image/png" href="assets/icon.png" />
+    <style>
+      :root {
+        --emerald: #0f5a45;
+        --emerald-deep: #083d31;
+        --emerald-ink: #06281f;
+        --off-white: #fafaf7;
+        --paper: #ffffff;
+        --text: #1f2924;
+        --muted: #52635a;
+        --soft: #f1f3ee;
+        --line: #e3d7c4;
+        --gold: #c99a3e;
+        --rose: #b85f72;
+        --blue: #426d8f;
+        --shadow: 0 24px 70px rgba(31, 41, 36, 0.11);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      body {
+        margin: 0;
+        background: var(--off-white);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      summary:focus-visible,
+      .button:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 4px;
+        border-radius: 8px;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .page-shell {
+        overflow: hidden;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        border-bottom: 1px solid rgba(227, 215, 196, 0.7);
+        background: rgba(250, 250, 247, 0.92);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        width: min(1120px, calc(100% - 32px));
+        min-height: 72px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        font-weight: 800;
+        color: var(--emerald-ink);
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        box-shadow: 0 10px 22px rgba(15, 90, 69, 0.2);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+      }
+
+      .nav-links a:hover {
+        color: var(--emerald);
+      }
+
+      main {
+        width: 100%;
+      }
+
+      section {
+        padding: 86px 0;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        min-height: calc(100vh - 72px);
+        display: flex;
+        align-items: center;
+        padding: 60px 0 72px;
+        background:
+          linear-gradient(110deg, rgba(15, 90, 69, 0.12), transparent 48%),
+          linear-gradient(180deg, #fffdf8 0%, var(--off-white) 68%);
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.75fr);
+        align-items: center;
+        gap: clamp(36px, 8vw, 96px);
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--emerald);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin-bottom: 24px;
+        color: var(--emerald-ink);
+        font-size: clamp(3.4rem, 9vw, 7.8rem);
+        line-height: 0.92;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        max-width: 680px;
+        color: var(--muted);
+        font-size: clamp(1.08rem, 2vw, 1.28rem);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 20px;
+        border: 1px solid var(--emerald);
+        border-radius: 8px;
+        background: var(--emerald);
+        color: #ffffff;
+        font-weight: 750;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--emerald);
+      }
+
+      .hero-visual {
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+
+      .app-icon-wrap {
+        width: min(340px, 78vw);
+        padding: 0;
+        border: 0;
+        border-radius: 34px;
+        background: transparent;
+        box-shadow: var(--shadow);
+      }
+
+      .app-icon-wrap img {
+        border-radius: 28px;
+      }
+
+      .section-heading {
+        display: grid;
+        gap: 12px;
+        max-width: 760px;
+        margin-bottom: 34px;
+      }
+
+      .section-heading.center {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        color: var(--emerald-ink);
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .feature {
+        min-height: 236px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      .feature-mark {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 24px;
+        border-radius: 50%;
+        background: var(--soft);
+        display: grid;
+        place-items: center;
+        color: var(--emerald);
+        font-weight: 900;
+      }
+
+      .feature:nth-child(2) .feature-mark {
+        color: var(--gold);
+      }
+
+      .feature:nth-child(3) .feature-mark {
+        color: var(--blue);
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        color: var(--emerald-ink);
+        font-size: 1.12rem;
+        line-height: 1.25;
+      }
+
+      .feature p,
+      .split p,
+      .faq p,
+      .policy p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .screenshots {
+        background: #fffdf8;
+      }
+
+      .screen-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(180px, 1fr));
+        gap: 18px;
+        align-items: start;
+      }
+
+      .screen-card {
+        display: grid;
+        gap: 14px;
+      }
+
+      .phone-frame {
+        display: block;
+        width: 100%;
+        border-radius: 28px;
+        background: transparent;
+      }
+
+      .phone-frame img {
+        width: 100%;
+        height: auto;
+        border-radius: 28px;
+        filter: drop-shadow(0 18px 28px rgba(31, 41, 36, 0.13));
+      }
+
+      .screen-card h3 {
+        margin-bottom: 0;
+        font-size: 1rem;
+      }
+
+      .screen-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.5;
+      }
+
+      .band {
+        background: var(--emerald-deep);
+        color: #ffffff;
+      }
+
+      .band h2,
+      .band h3 {
+        color: #ffffff;
+      }
+
+      .band .lede,
+      .band p {
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .band .eyebrow,
+      .contact .eyebrow {
+        color: #f7e7c6;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+        gap: clamp(28px, 6vw, 76px);
+        align-items: start;
+      }
+
+      .stat-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .stat-row {
+        display: grid;
+        grid-template-columns: 88px minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+        padding: 18px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .stat-row strong {
+        color: #f7e7c6;
+        font-size: 1.55rem;
+        line-height: 1;
+      }
+
+      .soft-section {
+        background: #fffdf8;
+      }
+
+      .backup-steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        counter-reset: steps;
+      }
+
+      .backup-step {
+        position: relative;
+        padding: 26px 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--off-white);
+        counter-increment: steps;
+      }
+
+      .backup-step::before {
+        content: counter(steps, decimal-leading-zero);
+        display: block;
+        margin-bottom: 28px;
+        color: var(--gold);
+        font-weight: 900;
+      }
+
+      .notice {
+        padding: clamp(28px, 5vw, 52px);
+        border: 1px solid rgba(201, 154, 62, 0.42);
+        border-radius: 8px;
+        background: #fff8e8;
+      }
+
+      .notice p:last-child {
+        margin-bottom: 0;
+      }
+
+      .faq-list {
+        display: grid;
+        gap: 12px;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      details {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      summary {
+        cursor: pointer;
+        padding: 20px 22px;
+        color: var(--emerald-ink);
+        font-weight: 800;
+      }
+
+      details p {
+        padding: 0 22px 22px;
+      }
+
+      .contact {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: center;
+        padding: clamp(30px, 5vw, 56px);
+        border-radius: 8px;
+        background: var(--emerald);
+        color: #ffffff;
+      }
+
+      .contact h2 {
+        color: #ffffff;
+      }
+
+      .contact p {
+        max-width: 640px;
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .contact .button {
+        border-color: #ffffff;
+        background: #ffffff;
+        color: var(--emerald);
+      }
+
+      .contact-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: flex-end;
+      }
+
+      .contact-status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 20px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 8px;
+        color: #ffffff;
+        font-weight: 750;
+        text-align: center;
+      }
+
+      .policy {
+        border-top: 1px solid var(--line);
+      }
+
+      .policy-box {
+        padding: 26px;
+        border: 1px dashed var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.54);
+      }
+
+      .site-footer {
+        padding: 28px 0 42px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .footer-row {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          min-height: 66px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        section {
+          padding: 64px 0;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 48px;
+        }
+
+        .hero-layout,
+        .split,
+        .contact {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-visual {
+          justify-content: start;
+        }
+
+        .app-icon-wrap {
+          width: min(260px, 70vw);
+        }
+
+        .feature-grid,
+        .backup-steps,
+        .screen-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .feature {
+          min-height: auto;
+        }
+
+        .screen-card {
+          max-width: 340px;
+        }
+
+        .footer-row {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .hero-actions {
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .contact-actions {
+          justify-content: stretch;
+        }
+
+        .contact-status {
+          width: 100%;
+        }
+
+        .stat-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <nav class="nav" aria-label="Primary navigation">
+          <a class="brand" href="#top">
+            <img src="assets/icon.png" alt="Dawr app icon" />
+            <span>Dawr</span>
+          </a>
+          <div class="nav-links" aria-label="Page sections">
+            <a href="#features">Features</a>
+            <a href="#screenshots">Screens</a>
+            <a href="#privacy">Privacy</a>
+            <a href="#backup">Backup</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="container hero-layout">
+            <div>
+              <p class="eyebrow">Hijri cycle and fasting tracker</p>
+              <h1 id="hero-title">Dawr</h1>
+              <p class="hero-copy">
+                A calm, private companion for tracking cycle days, obligatory and compulsory fasts, missed Ramadan
+                fasts, with Hijri and Gregorian dates based on a local-first approach.
+              </p>
+              <div class="hero-actions">
+                <a class="button" href="#contact">Contact for updates</a>
+                <a
+                  class="button secondary"
+                  href="https://forms.gle/c6xPLq5o8P7jVFKM9"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Share beta feedback
+                </a>
+                <a class="button secondary" href="#privacy">Privacy approach</a>
+              </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+              <div class="app-icon-wrap">
+                <img src="assets/icon.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" aria-labelledby="features-title">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">Features</p>
+              <h2 id="features-title">Designed for quiet daily use.</h2>
+              <p class="lede">
+                Dawr keeps the essentials visible without making your personal
+                tracking feel noisy or clinical.
+              </p>
+            </div>
+            <div class="feature-grid">
+              <article class="feature">
+                <div class="feature-mark">1</div>
+                <h3>Cycle-aware calendar</h3>
+                <p>
+                  View period days, clean days, and fasting days in a
+                  simple calendar shaped around Hijri awareness.
+                </p>
+              </article>
+              <article class="feature">
+                <div class="feature-mark">2</div>
+                <h3>Fasting support</h3>
+                <p>
+                  Track missed Ramadan fasts and keep an eye on upcoming fasting
+                  opportunities without clutter.
+                </p>
+              </article>
+              <article class="feature">
+                <div class="feature-mark">3</div>
+                <h3>Gentle context</h3>
+                <p>
+                  Helpful islamic reminders and informational guidance sit beside your
+                  data, curated to your phase needs.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="screenshots" class="screenshots" aria-labelledby="screenshots-title">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">App screens</p>
+              <h2 id="screenshots-title">A soft view of Dawr in practice.</h2>
+              <p class="lede">
+                Dawr on your screen.
+              </p>
+            </div>
+            <div class="screen-grid">
+              <article class="screen-card">
+                <div class="phone-frame">
+                  <img
+                    src="assets/screenshots/framed/home.webp"
+                    alt="Dawr home screen showing Hijri date, fasting actions, cycle status, and month view"
+                  />
+                </div>
+                <h3>Home</h3>
+                <p>Daily tracking, Hijri date context, and fasting actions.</p>
+              </article>
+              <article class="screen-card">
+                <div class="phone-frame">
+                  <img
+                    src="assets/screenshots/framed/guidance.webp"
+                    alt="Dawr guidance screen with informational cards and religious guidance disclaimer"
+                  />
+                </div>
+                <h3>Guidance</h3>
+                <p>Gentle reminders and context without replacing qualified advice.</p>
+              </article>
+              <article class="screen-card">
+                <div class="phone-frame">
+                  <img
+                    src="assets/screenshots/framed/settings.webp"
+                    alt="Dawr settings screen with preferences and data controls"
+                  />
+                </div>
+                <h3>Settings</h3>
+                <p>Simple controls for personal preferences and data handling.</p>
+              </article>
+              <article class="screen-card">
+                <div class="phone-frame">
+                  <img
+                    src="assets/screenshots/framed/backup.webp"
+                    alt="Dawr backup screen explaining local data backup and restore options"
+                  />
+                </div>
+                <h3>Backup</h3>
+                <p>Optional backup support for protecting personal records.</p>
+              </article>
+              <article class="screen-card">
+                <div class="phone-frame">
+                  <img
+                    src="assets/screenshots/framed/onboarding.webp"
+                    alt="Dawr onboarding screen introducing calm cycle and fasting tracking"
+                  />
+                </div>
+                <h3>Onboarding</h3>
+                <p>A clear introduction to private, local-first tracking.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="privacy" class="band" aria-labelledby="privacy-title">
+          <div class="container split">
+            <div class="section-heading">
+              <p class="eyebrow">Privacy and local-first</p>
+              <h2 id="privacy-title">Your records start on your device.</h2>
+              <p class="lede">
+                Dawr is intended to feel personal because the information is
+                personal. The app is built around local storage first, with
+                optional backup tools when you choose to use them.
+              </p>
+            </div>
+            <div class="stat-list" aria-label="Privacy principles">
+              <div class="stat-row">
+                <strong>Local</strong>
+                <p>
+                  Core tracking data is kept on the device so the app remains
+                  useful without a required account.
+                </p>
+              </div>
+              <div class="stat-row">
+                <strong>Choice</strong>
+                <p>
+                  Backup is a deliberate action, not a hidden background
+                  requirement for everyday tracking.
+                </p>
+              </div>
+              <div class="stat-row">
+                <strong>Calm</strong>
+                <p>
+                  The experience avoids feeds, public profiles, and social
+                  pressure around private worship and health-adjacent notes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="backup" class="soft-section" aria-labelledby="backup-title">
+          <div class="container">
+            <div class="section-heading center">
+              <p class="eyebrow">Backup explanation</p>
+              <h2 id="backup-title">A practical way to protect your records.</h2>
+              <p class="lede">
+                Backup exists so you can move or restore your Dawr data when you
+                need to. It should be treated like a private copy of your notes.
+              </p>
+            </div>
+            <div class="backup-steps">
+              <article class="backup-step">
+                <h3>You keep using Dawr locally</h3>
+                <p>
+                  Your daily tracking does not require publishing your records
+                  or signing into a Dawr account.
+                </p>
+              </article>
+              <article class="backup-step">
+                <h3>You choose when to back up</h3>
+                <p>
+                  When backup is enabled, review where the file is stored and
+                  use an account you trust.
+                </p>
+              </article>
+              <article class="backup-step">
+                <h3>You restore when needed</h3>
+                <p>
+                  A backup can help recover data after changing devices or
+                  reinstalling the app.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="guidance-title">
+          <div class="container">
+            <div class="notice">
+              <p class="eyebrow">Guidance disclaimer</p>
+              <h2 id="guidance-title">Dawr is supportive, not authoritative.</h2>
+              <p>
+                Dawr may show Hijri dates, fasting-related context, and general
+                informational guidance. It is not medical advice, religious
+                verdict, or a replacement for qualified scholars, clinicians, or
+                trusted local guidance. Always follow the guidance appropriate
+                for your situation.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" class="soft-section" aria-labelledby="faq-title">
+          <div class="container">
+            <div class="section-heading center">
+              <p class="eyebrow">FAQ</p>
+              <h2 id="faq-title">Common questions.</h2>
+            </div>
+            <div class="faq-list">
+              <details>
+                <summary>Is Dawr a medical app?</summary>
+                <p>
+                  No. Dawr is a personal tracking tool. It can help you record
+                  patterns, but it does not diagnose, treat, or replace medical
+                  care.
+                </p>
+              </details>
+              <details>
+                <summary>Does Dawr decide religious rulings for me?</summary>
+                <p>
+                  No. Dawr can organize dates and notes, but religious questions
+                  should be taken to qualified guidance you trust.
+                </p>
+              </details>
+              <details>
+                <summary>Do I need an account to use Dawr?</summary>
+                <p>
+                  No account is required for core local tracking. Optional
+                  backup features may use a separate provider account if you
+                  choose to enable them.
+                </p>
+              </details>
+              <details>
+                <summary>Where does my data live?</summary>
+                <p>
+                  Dawr is designed around local-first tracking. If you use a
+                  backup feature, that backup should be handled as a private
+                  copy of your personal records.
+                </p>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title">
+          <div class="container">
+            <div class="contact">
+              <div>
+                <p class="eyebrow">Contact</p>
+                <h2 id="contact-title">Questions, feedback, or support?</h2>
+                <p>
+                  Reach out for app support, privacy questions, or feedback on
+                  how Dawr can feel more useful and respectful.
+                </p>
+              </div>
+              <div class="contact-actions">
+                <a
+                  class="button"
+                  href="https://forms.gle/c6xPLq5o8P7jVFKM9"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Share beta feedback
+                </a>
+                <span class="contact-status">Contact email coming soon</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="policy" aria-labelledby="policy-title">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">Privacy policy</p>
+              <h2 id="policy-title">Privacy policy</h2>
+            </div>
+            <div class="policy-box">
+              <h3>Full policy coming soon</h3>
+              <p>
+                This outlines what data is stored locally, what optional backup providers may receive, how support
+                requests are handled, and how users can delete or export their
+                information.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-row">
+          <span>Dawr</span>
+          <span>Privacy-first Hijri fast and cycle tracking.</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

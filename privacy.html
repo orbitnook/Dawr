@@ -1,0 +1,296 @@
+<!doctype html>
+<!-- Source of truth: privacy-policy.md. Update the Markdown first, then sync this HTML page. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DAWR Privacy Policy</title>
+    <meta
+      name="description"
+      content="DAWR privacy policy explaining local storage, optional Google Drive backup, notifications, and data choices."
+    />
+    <link rel="icon" type="image/png" href="assets/icon.png" />
+    <style>
+      :root {
+        --emerald: #0f5a45;
+        --emerald-deep: #083d31;
+        --emerald-ink: #06281f;
+        --off-white: #fafaf7;
+        --paper: #ffffff;
+        --text: #1f2924;
+        --muted: #52635a;
+        --line: #e3d7c4;
+        --gold: #c99a3e;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--off-white);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.65;
+      }
+
+      a {
+        color: var(--emerald);
+        font-weight: 700;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 4px;
+        border-radius: 8px;
+      }
+
+      .site-header {
+        border-bottom: 1px solid rgba(227, 215, 196, 0.7);
+        background: rgba(250, 250, 247, 0.94);
+      }
+
+      .nav,
+      main,
+      .footer-row {
+        width: min(900px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--emerald-ink);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+      }
+
+      .nav-link {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      main {
+        padding: clamp(44px, 7vw, 84px) 0;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--emerald);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        color: var(--emerald-ink);
+        font-size: clamp(2.4rem, 8vw, 5rem);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        margin: 42px 0 12px;
+        color: var(--emerald-ink);
+        font-size: 1.35rem;
+        line-height: 1.25;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+      }
+
+      .updated {
+        margin-bottom: 34px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .policy-card {
+        padding: clamp(24px, 5vw, 44px);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      ul {
+        margin-top: 8px;
+        padding-left: 22px;
+      }
+
+      .contact-box {
+        margin-top: 40px;
+        padding: 22px;
+        border-left: 4px solid var(--gold);
+        background: #fff8e8;
+      }
+
+      .site-footer {
+        padding: 0 0 42px;
+      }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 560px) {
+        .nav,
+        .footer-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="index.html">
+          <img src="assets/icon.png" alt="Dawr app icon" />
+          <span>Dawr</span>
+        </a>
+        <a class="nav-link" href="index.html">Back to website</a>
+      </nav>
+    </header>
+
+    <main>
+      <p class="eyebrow">Privacy policy</p>
+      <h1>DAWR Privacy Policy</h1>
+      <p class="updated">Last Updated: July 2026</p>
+
+      <article class="policy-card">
+        <p>Thank you for using DAWR.</p>
+        <p>
+          DAWR is named after the Arabic root that conveys the idea of cycles
+          and recurring patterns. It is designed to help Muslim women privately
+          track their menstrual cycles, fasting, and providing subtle islamic and health guidance throughout
+          the year.
+        </p>
+        <p>
+          Privacy is one of the core principles behind DAWR. By default, your
+          information stays on your device. Cloud backup is optional and only
+          happens if you choose to connect your Google account and enable it.
+        </p>
+        <p>
+          This Privacy Policy explains what information DAWR stores, how it is
+          used, and the choices you have regarding your data.
+        </p>
+
+        <h2>1. Information Stored by DAWR</h2>
+        <p>Depending on how you use the app, DAWR may store the following information:</p>
+        <ul>
+          <li>Personal information, such as your preferred name.</li>
+          <li>Menstrual and cycle information, including period dates, cycle history, typical cycle length, typical period length, learned averages, pregnancy status, postpartum status, and related menstrual tracking information.</li>
+          <li>Fasting information, including days marked as fasting, missed Ramadan fasts, repaid Ramadan fasts, Qadha tracking history, and Islamic (Hijri) and Gregorian calendar fasting records.</li>
+          <li>App preferences, including notification preferences, reminder times, backup preferences, Google backup status, and other application settings.</li>
+          <li>Backup metadata, such as backup creation time, export time, schema version, application version, and device identifier where applicable.</li>
+        </ul>
+        <p>This information helps ensure backups can be restored safely across app updates.</p>
+
+        <h2>2. Where Your Information Is Stored</h2>
+        <p>By default, all of your tracking data is stored locally on your device.</p>
+        <p>DAWR does not require you to create an account to use the application.</p>
+        <p>
+          Your menstrual records, fasting history, cycle predictions, and
+          settings remain on your device unless you choose one of the optional
+          backup methods described below.
+        </p>
+
+        <h2>3. Optional Google Drive Backup</h2>
+        <p>DAWR offers an optional Google Drive backup feature.</p>
+        <p>If you choose to sign in with Google and enable automatic or manual cloud backup, your backup is stored in your own Google Drive AppData folder.</p>
+        <p>This folder is private to your Google account, is not visible in your normal Google Drive files, and can only be accessed by DAWR.</p>
+        <p>DAWR only requests the Google permissions required for authentication and access to your app's backup folder.</p>
+        <p>DAWR does not access your personal Google Drive files, emails, contacts, or other Google data.</p>
+        <p>Cloud backups are protected by your Google account. At this time, DAWR does not apply additional end-to-end encryption before backup files are stored in Google Drive.</p>
+
+        <h2>4. Manual Backup Files</h2>
+        <p>DAWR also allows you to export manual backup files.</p>
+        <p>Once you export a backup file, it becomes your responsibility to store it securely. You decide where it is saved and whether it is shared.</p>
+        <p>DAWR cannot control or protect exported files once they leave the application.</p>
+
+        <h2>5. Third-Party Services</h2>
+        <p>DAWR uses a small number of trusted third-party services to provide optional functionality. These currently include:</p>
+        <ul>
+          <li>Google Sign-In, used only if you choose to connect your Google account for cloud backup.</li>
+          <li>Google Drive AppData, used only if you enable cloud backups.</li>
+          <li>A Hijri calendar service, used to help keep Hijri and Gregorian dates aligned accurately.</li>
+        </ul>
+        <p>The Hijri calendar service is not used to predict menstrual cycles or fasting history. Menstrual predictions are calculated locally on your device.</p>
+
+        <h2>6. How DAWR Uses Your Information</h2>
+        <p>Your information is used only to provide the features of the application, including menstrual tracking, cycle prediction, fasting tracking, Qadha tracking, pregnancy and postpartum tracking, reminders and notifications, backup, and restore.</p>
+        <p>DAWR does not use your information for advertising, profiling, or marketing.</p>
+
+        <h2>7. Data Sharing</h2>
+        <p>DAWR does not sell your personal information.</p>
+        <p>DAWR does not share your menstrual records, fasting records, or religious tracking data with advertisers, marketing companies, or other users.</p>
+        <p>Cloud backups remain within your own Google account if you choose to enable them.</p>
+
+        <h2>8. Notifications</h2>
+        <p>If you enable notifications, DAWR may send local reminders to your device for features such as period reminders, Qadha reminders, and tracker update reminders.</p>
+        <p>Notifications are generated locally on your device.</p>
+        <p>You may disable notifications at any time within the app or through your device settings.</p>
+
+        <h2>9. Your Choices</h2>
+        <p>You remain in control of your data. At any time you may erase your local data, disable notifications, disconnect Google Drive backup, delete cloud backups, export your data, import previous backups, or uninstall DAWR.</p>
+
+        <h2>10. Data Security</h2>
+        <p>DAWR has been designed with a privacy-first approach.</p>
+        <p>By default, your information stays on your device, cloud backup is optional, and Google authentication is optional.</p>
+        <p>While we take reasonable steps to protect your information, no method of electronic storage or transmission can be guaranteed to be completely secure.</p>
+
+        <h2>11. Children</h2>
+        <p>DAWR is intended for individuals who wish to track menstrual cycles and Islamic fasting.</p>
+        <p>It is not designed for young children.</p>
+
+        <h2>12. Changes to This Privacy Policy</h2>
+        <p>As DAWR continues to improve, this Privacy Policy may be updated from time to time.</p>
+        <p>When significant changes are made, the "Last Updated" date at the top of this document will be revised.</p>
+
+        <h2>13. Contact</h2>
+        <div class="contact-box">
+          <p>
+            If you have any questions about this Privacy Policy or how DAWR
+            handles your information, please contact:
+            <a href="mailto:hello.dawr@gmail.com">hello.dawr@gmail.com</a>
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-row">
+        <span>Dawr</span>
+        <span>Privacy-first Hijri fast and cycle tracking.</span>
+      </div>
+    </footer>
+  </body>
+</html>

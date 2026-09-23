@@ -14,17 +14,21 @@ Netlify should deploy that public repository without a build step.
 - Pretty URLs: `netlify.toml` explicitly disables rewriting during migration so
   `privacy.html` and `terms.html` remain the policy URLs used by store metadata
 
-GitHub Pages can remain live while the Netlify deployment is reviewed.
+## Production hosts
 
-## Primary hostname switch
+- Primary canonical host: `https://dawrapp.netlify.app/`
+- Fallback and legacy GitHub Pages host: `https://orbitnook.github.io/Dawr/`
 
-The current primary origin is `https://orbitnook.github.io/Dawr/`. After the
-final Netlify hostname is confirmed and the site is approved, replace that
-origin in these locations in one publication change:
+Netlify is now the canonical public host. GitHub Pages can remain available as
+a fallback.
+
+## Canonical hostname locations
+
+The canonical Netlify origin is recorded in these locations:
 
 1. `index.html`: canonical URL, `og:url`, `og:image` and `twitter:image`
 2. `robots.txt`: `Sitemap` URL
 3. `sitemap.xml`: all three `<loc>` values
 
-The social image path remains `/assets/social-preview.png` beneath whichever
-origin becomes primary. Do not change the current URLs before Netlify is ready.
+The canonical social image is
+`https://dawrapp.netlify.app/assets/social-preview.png`.

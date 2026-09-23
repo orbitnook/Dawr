@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Update these hostnames only after a new primary production host is confirmed. -->
-  <url><loc>https://orbitnook.github.io/Dawr/</loc></url>
-  <url><loc>https://orbitnook.github.io/Dawr/privacy.html</loc></url>
-  <url><loc>https://orbitnook.github.io/Dawr/terms.html</loc></url>
+  <!-- Netlify is the canonical production host. -->
+  <url><loc>https://dawrapp.netlify.app/</loc></url>
+  <url><loc>https://dawrapp.netlify.app/privacy.html</loc></url>
+  <url><loc>https://dawrapp.netlify.app/terms.html</loc></url>
 </urlset>

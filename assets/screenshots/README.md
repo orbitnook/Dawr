@@ -5,8 +5,9 @@ from an older DAWR interface. They are retained for reference but must not be
 presented as current production UI.
 
 The September 2026 product captures under `assets/screenshots/current/` are the
-current homepage source images. JPEG originals are retained for review, and the
-homepage serves dimension-matched WebP exports:
+current homepage source images. The retained JPEG originals are direct 1080 by
+2340 device captures. The homepage serves optimized 540 by 1170 WebP fallbacks
+plus true-source 1080 by 2340 WebP variants for high-density screens:
 
 - `home.webp`: full Home screen, used once in the hero and as calendar crops.
 - `calendar-qadha.webp`: calendar and expanded qadha card.
@@ -33,9 +34,17 @@ All visible sample names, dates, status bars and notification icons must receive
 a final publication review. The supplied feedback/chat screenshots are source
 material only. They must never be copied here or published.
 
-The WebP exports preserve the original 498 by 1080 dimensions and use explicit
-intrinsic dimensions, `loading="lazy"` and `decoding="async"` in the homepage
-markup. The hero remains high priority rather than lazy loaded.
+Each approved capture has a 540 by 1170 standard WebP and an `@2x.webp` variant
+at the original 1080 by 2340 resolution. The 2x files are encoded directly from
+the original device captures and are never enlarged from website derivatives.
+The homepage uses width-based `srcset` and `sizes` values with 540 by 1170
+intrinsic dimensions, `loading="lazy"` and `decoding="async"` in the markup.
+The hero remains high priority rather than lazy loaded.
+
+Future refreshes must begin with original device screenshots or original export
+files. Do not build production assets from images downloaded from WhatsApp or
+another messaging service, and do not create high-density variants by enlarging
+compressed 1x website assets.
 
 The reviewed 1200 by 630 social preview is stored at
 `assets/social-preview.png`. Its absolute metadata URL must move from the

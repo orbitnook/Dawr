@@ -10,6 +10,7 @@
       content="DAWR terms of service covering app use, medical and religious disclaimers, data ownership, backups, and liability."
     />
     <link rel="icon" type="image/png" href="assets/icon.png" />
+    <link rel="apple-touch-icon" href="assets/icon.png" />
     <style>
       :root {
         --emerald: #0f5a45;
@@ -88,6 +89,22 @@
         text-decoration: none;
       }
 
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 12px 20px;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .nav-links a[aria-current="page"] {
+        color: var(--emerald);
+      }
+
       main {
         padding: clamp(44px, 7vw, 84px) 0;
       }
@@ -147,17 +164,33 @@
       }
 
       .site-footer {
-        padding: 0 0 42px;
+        padding: 34px 0;
+        background: var(--emerald-deep);
       }
 
       .footer-row {
         display: flex;
+        align-items: center;
         justify-content: space-between;
         gap: 18px;
-        border-top: 1px solid var(--line);
-        padding-top: 22px;
-        color: var(--muted);
+        color: #d7e3dd;
         font-size: 0.95rem;
+      }
+
+      .footer-brand {
+        color: #ffffff;
+        font-weight: 800;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px 18px;
+      }
+
+      .footer-links a {
+        color: #ffffff;
       }
 
       @media (max-width: 560px) {
@@ -166,26 +199,46 @@
           align-items: flex-start;
           flex-direction: column;
         }
+
+        .nav {
+          padding: 12px 0;
+        }
+
+        .nav-links,
+        .footer-links {
+          justify-content: flex-start;
+        }
       }
     </style>
+    <link rel="stylesheet" href="assets/legal.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="site-header">
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="index.html">
-          <img src="assets/icon.png" alt="Dawr app icon" />
-          <span>Dawr</span>
+          <img src="assets/icon.png" width="42" height="42" alt="" decoding="async" />
+          <span>DAWR</span>
         </a>
-        <a class="nav-link" href="index.html">Back to website</a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html" aria-current="page">Terms</a>
+          <a href="index.html#download">Download</a>
+        </div>
       </nav>
     </header>
 
-    <main>
-      <p class="eyebrow">Terms of service</p>
-      <h1>DAWR Terms of Service</h1>
-      <p class="updated">Last Updated: July 2026</p>
+    <main id="main-content">
+      <section class="legal-hero" aria-labelledby="legal-title">
+        <div class="legal-hero-inner">
+          <p class="eyebrow">Terms of service</p>
+          <h1 id="legal-title">DAWR Terms of Service</h1>
+          <p class="updated">Last Updated: July 2026</p>
+        </div>
+      </section>
 
-      <article class="policy-card">
+      <article class="policy-card legal-content">
         <p>Welcome to DAWR.</p>
         <p>
           These Terms of Service ("Terms") govern your use of the DAWR mobile
@@ -332,7 +385,7 @@
         <div class="contact-box">
           <p>
             If you have any questions regarding these Terms, please contact:
-            <a href="mailto:hello.dawr@gmail.com">hello.dawr@gmail.com</a>
+            <a href="mailto:hello.dawr@gmail.com?subject=DAWR%20Support">hello.dawr@gmail.com</a>
           </p>
         </div>
       </article>
@@ -340,14 +393,25 @@
 
     <footer class="site-footer">
       <div class="footer-row">
-        <span>Dawr</span>
-        <span>
-          Privacy-first Hijri fast and cycle tracking.
-          <a href="privacy.html">Privacy Policy</a>
-          <span aria-hidden="true"> · </span>
+        <span class="footer-brand">DAWR</span>
+        <div class="footer-links" aria-label="Footer navigation">
+          <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
-        </span>
+          <a href="https://apps.apple.com/app/id6804812351" target="_blank" rel="noopener noreferrer">App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.dawr.hijricycletracker" target="_blank" rel="noopener noreferrer">Google Play</a>
+          <div class="footer-contact" data-contact-menu>
+            <button class="footer-contact-toggle" type="button" aria-expanded="false" aria-controls="contact-popover-terms">Contact us</button>
+            <div class="contact-popover" id="contact-popover-terms" role="group" aria-label="Support options" hidden>
+              <span class="contact-email">hello.dawr@gmail.com</span>
+              <div class="contact-actions">
+                <a class="contact-action primary" href="mailto:hello.dawr@gmail.com?subject=DAWR%20Support">Email us</a>
+                <button class="contact-action" type="button" data-copy-email aria-label="Copy support email address"><span data-copy-label aria-live="polite">Copy email</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
+    <script src="assets/contact.js" defer></script>
   </body>
 </html>

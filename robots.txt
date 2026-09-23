@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://orbitnook.github.io/Dawr/sitemap.xml
